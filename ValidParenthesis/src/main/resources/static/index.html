@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valid Parenthesis</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background: black;
+            color: white;
+            overflow: hidden;
+        }
+
+        .background {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: black;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .background .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 2s infinite ease-in-out alternate;
+        }
+
+        @keyframes twinkle {
+            0% {
+                opacity: 0.5;
+                box-shadow: 0 0 5px white;
+            }
+            100% {
+                opacity: 1;
+                box-shadow: 0 0 10px white;
+            }
+        }
+
+        .heading {
+            text-align: center;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 3rem;
+            margin-top: 50px;
+            color: #FFD700;
+        }
+
+        .description {
+            text-align: center;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1.5rem;
+            margin-top: 20px;
+            margin-bottom: 20px; /* Added space between heading and description */
+            color: #FFD700;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 70vh;
+        }
+
+        .input-box {
+            width: 300px;
+            padding: 10px;
+            margin: 20px;
+            font-size: 16px;
+            border: 2px solid #FFD700;
+            border-radius: 5px;
+            background-color: black;
+            color: white;
+        }
+
+        .button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: red; /* Changed font color to red */
+            background-color: #FFD700;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .button:hover {
+            background-color: #FFA500;
+        }
+
+        .clock {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 18px;
+            font-family: 'Arial', sans-serif;
+            background-color: grey; /* Added grey background */
+            padding: 5px; /* Added padding for button-like casing */
+            border-radius: 5px; /* Added border radius for button-like casing */
+        }
+
+        .result-container {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 1.5rem;
+            color: #FFD700;
+        }
+    </style>
+</head>
+<body>
+<div class="background" id="background"></div>
+<div class="clock" id="clock"></div>
+<div class="heading">Valid Parenthesis</div>
+<div class="description">Enter a string of parentheses to check if it is valid!</div>
+<div class="container">
+    <input type="text" id="userInput" class="input-box" placeholder="Enter your parenthesis">
+    <button class="button" id="submitButton">Submit</button>
+    <div class="result-container" id="resultContainer"></div>
+</div>
+
+<script>
+    // Function to create twinkling stars
+    function createStars() {
+        const background = document.getElementById('background');
+        for (let i = 0; i < 200; i++) { // Increased number of stars
+            const star = document.createElement('div');
+            star.classList.add('star');
+            star.style.top = `${Math.random() * 100}%`;
+            star.style.left = `${Math.random() * 100}%`;
+            background.appendChild(star);
+        }
+    }
+    createStars();
+
+    // Function to update the clock
+    function updateClock() {
+        const now = new Date();
+        const indianTime = now.toLocaleTimeString('en-US', { timeZone: 'Asia/Kolkata' });
+        document.getElementById('clock').textContent = indianTime;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // Handling form submission
+    document.getElementById('submitButton').addEventListener('click', async () => {
+        const input = document.getElementById('userInput').value;
+        const resultContainer = document.getElementById('resultContainer');
+
+        try {
+            const response = await fetch(`/getValue/${encodeURIComponent(input)}`);
+            if (!response.ok) {
+                throw new Error('Failed to fetch from the backend');
+            }
+
+            const resultText = await response.text();
+            resultContainer.textContent = `Result: ${resultText}`;
+        } catch (error) {
+            resultContainer.textContent = `Error: ${error.message}`;
+        }
+    });
+</script>
+</body>
+</html>
