@@ -18,6 +18,7 @@ import java.time.LocalDateTime;
 @Component
 
 public class stackInfo {
+
     private String inputString;
     private String result;
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
