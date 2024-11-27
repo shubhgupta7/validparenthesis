@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/ValidParenthesis/ValidParenthesis.iml" filepath="$PROJECT_DIR$/ValidParenthesis/ValidParenthesis.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/validparenthesis.iml" filepath="$PROJECT_DIR$/.idea/validparenthesis.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/ValidParenthesis.iml" filepath="$PROJECT_DIR$/.idea/ValidParenthesis.iml" />
     </modules>
   </component>
 </project>
